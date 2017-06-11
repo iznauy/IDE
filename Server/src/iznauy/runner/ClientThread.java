@@ -120,9 +120,9 @@ public class ClientThread implements Runnable {
         String fileType = getFileVersionListRequest.getFileType();
         String filePath = null;
         if (fileType.equals(NewFileRequest.BRAIN_FUCK)) {
-            filePath = userName + "/bf/" + fileName + "/nameSheet.txt";
+            filePath = userName + "/bf/" + fileName + "/version.txt";
         } else if (fileType.equals(NewFileRequest.OOK)) {
-            filePath = userName + "/ook/" + fileName + "/nameSheet.txt";
+            filePath = userName + "/ook/" + fileName + "/version.txt";
         }
         try {
             File file = new File(filePath);
@@ -209,10 +209,10 @@ public class ClientThread implements Runnable {
             File current = new File(currentSheet);
             File version = new File(versionSheet);
             try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(current)))) {
-                bufferedWriter.write(fileVersionName);
+                bufferedWriter.write(fileVersionName + System.lineSeparator());
             }
             try (BufferedWriter bufferedWriter = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(version, true)))) {
-                bufferedWriter.write(fileVersionName);
+                bufferedWriter.write(fileVersionName + System.lineSeparator());
             }
             NetUtils.sendResponse(client, new SaveFileResponse());
         } catch (IOException e) {
