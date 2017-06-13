@@ -20,6 +20,7 @@ public abstract class NetUtils {
             OutputStream out = client.getOutputStream();
             out.write(responseJson.getBytes());
             client.shutdownOutput();
+            System.out.println("发送回复成功");
             return true;
         } catch (IOException e) {
             e.printStackTrace();

@@ -1,5 +1,6 @@
 package iznauy.utils;
 
+import iznauy.exception.LanStackOverException;
 import iznauy.exception.StackOutBoundException;
 import iznauy.exception.SyntaxError;
 
@@ -18,7 +19,11 @@ public class BrainFuckInterpreter implements Interpreter {
         }
         StringBuffer output = new StringBuffer();
 
+        System.out.println("In executing!");
+
         try {
+            int count = 0;
+            int maxCount = 10000000;
             String program = filter(rawProgram);
             HashMap<Integer, Integer> jumpMap = precomputeJumps(program);
             ArrayList<Integer> buffer = new ArrayList<>();
@@ -42,9 +47,10 @@ public class BrainFuckInterpreter implements Interpreter {
                         throw new StackOutBoundException(StackOutBoundException.OUT_BOUDN);
                     }
                 } else if (opcode == ',') {
-                    if (input != null && input.length() <= inputPtr) {
+                    if (input != null) {
                         buffer.set(ptr, Integer.valueOf(input.charAt(inputPtr)));
                     }
+                    inputPtr++;
                 } else if (opcode == '.') {
                     output.append(Character.toChars(buffer.get(ptr)));
                 } else if (opcode == '[') {
@@ -61,6 +67,10 @@ public class BrainFuckInterpreter implements Interpreter {
                     buffer.set(ptr, buffer.get(ptr) - 1);
                 }
                 pc += 1;
+                count++;
+                if (count > maxCount) {
+                    throw new LanStackOverException();
+                }
             }
         } catch(SyntaxError e) {
             e.printStackTrace();
@@ -71,6 +81,9 @@ public class BrainFuckInterpreter implements Interpreter {
         } catch (StringIndexOutOfBoundsException e) {
             e.printStackTrace();
             return "输入堵塞\n" + output.toString();
+        } catch (LanStackOverException e) {
+            e.printStackTrace();
+            return "指令过多！" + output.toString();
         }
         return output.toString();
     }

@@ -25,6 +25,7 @@ import iznauy.utils.Config;
 import iznauy.utils.NetUtils;
 import iznauy.utils.User;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
@@ -67,6 +68,10 @@ public class MainStage extends Stage {
 	
 	private MenuItem versionItem;
 	
+	private MenuItem undoItem;
+	
+	private MenuItem redoItem;
+	
 	private Scene scene;
 	
 	private Pane mainPane;
@@ -85,6 +90,8 @@ public class MainStage extends Stage {
 	
 	private String fileType = ExecuteRequest.BRAIN_FUCK;
 	
+	private String buffer = null;
+	
 	public MainStage() {
 		init();
 		registerListeners();
@@ -100,10 +107,14 @@ public class MainStage extends Stage {
 		exitFile = new MenuItem("Exit");
 		openFile = new MenuItem("Open");
 		execute = new MenuItem("Execute");
+		undoItem = new MenuItem("Undo");
+		redoItem = new MenuItem("Redo");
 		fileMenu.getItems().add(newFile);
 		fileMenu.getItems().add(openFile);
 		fileMenu.getItems().add(saveFile);
 		fileMenu.getItems().add(exitFile);
+		fileMenu.getItems().add(undoItem);
+		fileMenu.getItems().add(redoItem);
 		runMenu.getItems().add(execute);
 		versionItem = new MenuItem("version");
 		versionMenu.getItems().add(versionItem);
@@ -148,7 +159,6 @@ public class MainStage extends Stage {
 		outputArea.setPrefSize(350, 200);
 		outputArea.setLayoutX(365);
 		outputArea.setLayoutY(370);
-		outputArea.setDisable(true);
 		
 		mainPane = new Pane();
 		scene = new Scene(mainPane, 720, 580);
@@ -280,6 +290,7 @@ public class MainStage extends Stage {
 									new Alert(AlertType.ERROR, "服务走丢了").show();
 								} else {
 									new Alert(AlertType.INFORMATION, "文件创建成功！").show();
+									disableMainPane();
 									enableMainPane();
 									Config.setPresentFileName(nameTextField.getText().trim());
 									if (brainfuckButton.isSelected()) {
@@ -442,13 +453,49 @@ public class MainStage extends Stage {
 						new Alert(AlertType.ERROR, "网络连接失败").show();
 					}
 				}
-					
-			
 			}
 		});
+		
+		undoItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				String temp = codeTextArea.getText();
+				codeTextArea.setText(buffer);
+				buffer = temp;
+				undoItem.setDisable(true);
+				redoItem.setDisable(false);
+			}
+		});
+		
+		redoItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				String temp = codeTextArea.getText();
+				codeTextArea.setText(buffer);
+				buffer = temp;
+				undoItem.setDisable(false);
+				redoItem.setDisable(true);
+			}
+		});
+		
+		codeTextArea.setOnKeyPressed(new EventHandler<Event>() {
+
+			@Override
+			public void handle(Event event) {
+				buffer = codeTextArea.getText();
+				undoItem.setDisable(false);
+				redoItem.setDisable(true);
+			}
+		});
+		
 	}
 	
 	private void disableMainPane() {
+		redoItem.setDisable(true);
+		undoItem.setDisable(true);
+		outputArea.setDisable(true);
 		saveFile.setDisable(true);
 		execute.setDisable(true);
 		exitFile.setDisable(true);
@@ -459,6 +506,7 @@ public class MainStage extends Stage {
 	}
 	
 	private void enableMainPane() {
+		outputArea.setDisable(false);
 		saveFile.setDisable(false);
 		execute.setDisable(false);
 		exitFile.setDisable(false);
