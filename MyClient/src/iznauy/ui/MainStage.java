@@ -1,7 +1,8 @@
 package iznauy.ui;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Optional;
-
 
 import iznauy.exception.InvaildRequsetException;
 import iznauy.exception.NetWorkException;
@@ -89,6 +90,10 @@ public class MainStage extends Stage {
 	private Label outputLabel;
 	
 	private String fileType = ExecuteRequest.BRAIN_FUCK;
+	
+	private Deque<String> undoBufferQueue = new LinkedList<>();
+	
+	private Deque<String> redoBufferQueue = new LinkedList<>();
 	
 	private String buffer = null;
 	
@@ -299,6 +304,8 @@ public class MainStage extends Stage {
 										Config.setPresentFileType(NewFileRequest.OOK);
 									}
 								}
+								undoBufferQueue.clear();
+								redoBufferQueue.clear();
 							} catch (NetWorkException | InvaildRequsetException e) {
 								e.printStackTrace();
 								new Alert(AlertType.ERROR, "网络连接失败！").show();
@@ -397,6 +404,8 @@ public class MainStage extends Stage {
 							enableMainPane();
 							codeTextArea.setText(content);
 							Config.setPresentFileName(selectedFile);
+							undoBufferQueue.clear();
+							redoBufferQueue.clear();
 							if (selectedType.equals("BF")) {
 								Config.setPresentFileType(NewFileRequest.BRAIN_FUCK);
 							} else if (selectedType.equals("Ook")) {
@@ -446,6 +455,8 @@ public class MainStage extends Stage {
 							GetSelectedVersionResponse getSelectedVersionResponse = (GetSelectedVersionResponse) response;
 							String content = getSelectedVersionResponse.getContent();
 							codeTextArea.setText(content);
+							undoBufferQueue.clear();
+							redoBufferQueue.clear();
 						}
 						
 					} catch (NetWorkException | InvaildRequsetException e) {
@@ -460,10 +471,16 @@ public class MainStage extends Stage {
 
 			@Override
 			public void handle(ActionEvent event) {
-				String temp = codeTextArea.getText();
+				buffer = codeTextArea.getText();
+				if (redoBufferQueue.size() >= 10) {
+					redoBufferQueue.poll();
+				}
+				redoBufferQueue.push(new String(buffer));
+				if (undoBufferQueue.size() == 1) {
+					undoItem.setDisable(true);
+				}
+				buffer = undoBufferQueue.pop();
 				codeTextArea.setText(buffer);
-				buffer = temp;
-				undoItem.setDisable(true);
 				redoItem.setDisable(false);
 			}
 		});
@@ -472,11 +489,17 @@ public class MainStage extends Stage {
 
 			@Override
 			public void handle(ActionEvent event) {
-				String temp = codeTextArea.getText();
+				buffer = codeTextArea.getText();
+				if (undoBufferQueue.size() >= 10) {
+					undoBufferQueue.poll();
+				}
+				undoBufferQueue.push(new String(buffer));
+				if (redoBufferQueue.size() == 1) {
+					redoItem.setDisable(true);
+				}
+				buffer = redoBufferQueue.pop();
 				codeTextArea.setText(buffer);
-				buffer = temp;
 				undoItem.setDisable(false);
-				redoItem.setDisable(true);
 			}
 		});
 		
@@ -484,7 +507,12 @@ public class MainStage extends Stage {
 
 			@Override
 			public void handle(Event event) {
+				redoBufferQueue.clear();
 				buffer = codeTextArea.getText();
+				if (undoBufferQueue.size() >= 10) {
+					undoBufferQueue.poll();
+				}
+				undoBufferQueue.push(new String(buffer));
 				undoItem.setDisable(false);
 				redoItem.setDisable(true);
 			}
@@ -503,6 +531,9 @@ public class MainStage extends Stage {
 		codeTextArea.setDisable(true);
 		inputArea.setText("");
 		codeTextArea.setText("");
+		outputArea.setText("");
+		undoBufferQueue.clear();
+		redoBufferQueue.clear();
 	}
 	
 	private void enableMainPane() {
@@ -512,6 +543,8 @@ public class MainStage extends Stage {
 		exitFile.setDisable(false);
 		inputArea.setDisable(false);
 		codeTextArea.setDisable(false);
+		undoBufferQueue.clear();
+		redoBufferQueue.clear();
 	}
 
 }
