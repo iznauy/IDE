@@ -2,6 +2,11 @@ package iznauy.request;
 
 import iznauy.utils.User;
 
+/**
+ * Request类。是服务器端和客户端交互的模板类。
+ * @author iznauy
+ *
+ */
 public class Request {
 	
 	private String userName = null;

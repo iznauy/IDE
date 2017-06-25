@@ -1,5 +1,10 @@
 package iznauy.response;
 
+/**
+ * Response类。是服务器端和客户端交互的模板类。
+ * @author iznauy
+ *
+ */
 public class Response {
 
 	public static final String LOGIN = "LOGIN";

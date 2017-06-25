@@ -7,6 +7,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+/**
+ * 自定义Request转化为Json字符串的方式
+ * @author iznauy
+ *
+ */
 public class RequestSerializer implements JsonSerializer<Request> {
 
 	@Override

@@ -9,11 +9,16 @@ import iznauy.response.Response;
 import iznauy.response.ResponseDeserializer;
 import javafx.stage.Stage;
 
+/**
+ * 主要的配置信息
+ * @author iznauy
+ *
+ */
 public abstract class Config {
 	
 	private static Stage initStage;
 
-	private static User user = new User("1112", "1112");
+	private static User user;
 	
 	private static String address = "127.0.0.1";
 	

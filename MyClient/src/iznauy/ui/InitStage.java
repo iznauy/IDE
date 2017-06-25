@@ -13,7 +13,7 @@ public class InitStage extends Stage {
 	public InitStage() throws Exception {
 
 		Pane pane = new Pane();
-		ImageView backGround = new ImageView(new Image(getClass().getResource("init.png").toString()));
+		ImageView backGround = new ImageView(new Image(getClass().getResource("init.jpg").toString()));
 		pane.getChildren().add(backGround);
 
 		ProgressBar progressBar = new ProgressBar();

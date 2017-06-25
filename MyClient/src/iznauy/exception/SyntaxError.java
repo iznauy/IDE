@@ -1,5 +1,10 @@
 package iznauy.exception;
 
+/**
+ * 当用户的bf/Ook代码出错时，抛出
+ * @author iznauy
+ *
+ */
 public class SyntaxError extends Exception {
 
     private static final long serialVersionUID = -8402552871238251799L;
