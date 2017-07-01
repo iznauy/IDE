@@ -52,6 +52,12 @@ public class RequestDeserializer implements JsonDeserializer<Request> {
             String fileName = targetObject.get("fileName").getAsString();
             String version = targetObject.get("version").getAsString();
             request = new GetSelectedVersionRequest(userName, password, fileName, fileType, version);
+        } else if (requestType.equals(Request.DEBUG)) {
+            String rawSource = targetObject.get("rawSource").getAsString();
+            String input = targetObject.get("input").getAsString();
+            String exeType = targetObject.get("type").getAsString();
+            int count = targetObject.get("count").getAsInt();
+            request = new DebugRequest(userName, password, rawSource, input, exeType, count);
         }
         return request;
     }

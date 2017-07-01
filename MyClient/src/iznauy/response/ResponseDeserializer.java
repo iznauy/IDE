@@ -42,6 +42,9 @@ public class ResponseDeserializer implements JsonDeserializer<Response> {
 		} else if (responseType.equals(Response.GET_FILE_LIST)) {
 			String[] files = arg2.deserialize(originalObject.get("files"), String[].class);
 			response = new GetFileListResponse(files);
+		} else if (responseType.equals(Response.DEBUG)) {
+			String output = originalObject.get("output").getAsString();
+			response = new DebugResponse(output);
 		}
 		return response;
 	}

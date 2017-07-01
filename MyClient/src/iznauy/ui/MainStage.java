@@ -56,6 +56,8 @@ public class MainStage extends Stage {
 	
 	private Menu versionMenu;
 	
+	private Menu testMenu;
+	
 	private MenuItem newFile;
 	
 	private MenuItem saveFile;
@@ -71,6 +73,10 @@ public class MainStage extends Stage {
 	private MenuItem undoItem;
 	
 	private MenuItem redoItem;
+	
+	private MenuItem debugItem;
+	
+	private MenuItem unitTestItem;
 	
 	private Scene scene;
 	
@@ -94,6 +100,10 @@ public class MainStage extends Stage {
 	
 	private ArrayList<String> redoBuffer = new ArrayList<>();
 	
+	private Stage debugStage = null;
+	
+	private Stage unitTestStage = null;
+	
 	private String buffer = null;
 	
 	public MainStage() {
@@ -106,6 +116,7 @@ public class MainStage extends Stage {
 		fileMenu = new Menu("File");
 		runMenu = new Menu("Run");
 		versionMenu = new Menu("Version");
+		testMenu = new Menu("Test");
 		newFile = new MenuItem("New");
 		saveFile = new MenuItem("Save");
 		exitFile = new MenuItem("Exit");
@@ -113,6 +124,8 @@ public class MainStage extends Stage {
 		execute = new MenuItem("Execute");
 		undoItem = new MenuItem("Undo");
 		redoItem = new MenuItem("Redo");
+		debugItem = new MenuItem("Debug");
+		unitTestItem = new MenuItem("Unit Test");
 		fileMenu.getItems().add(newFile);
 		fileMenu.getItems().add(openFile);
 		fileMenu.getItems().add(saveFile);
@@ -120,9 +133,11 @@ public class MainStage extends Stage {
 		fileMenu.getItems().add(undoItem);
 		fileMenu.getItems().add(redoItem);
 		runMenu.getItems().add(execute);
+		testMenu.getItems().add(debugItem);
+		testMenu.getItems().add(unitTestItem);
 		versionItem = new MenuItem("version");
 		versionMenu.getItems().add(versionItem);
-		menuBar = new MenuBar(fileMenu, runMenu, versionMenu);
+		menuBar = new MenuBar(fileMenu, runMenu, versionMenu, testMenu);
 		
 		codeTextArea = new TextArea();
 		codeTextArea.setPrefHeight(300);
@@ -515,6 +530,38 @@ public class MainStage extends Stage {
 			}
 		});
 		
+		debugItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (Config.getPresentFileType().equals(NewFileRequest.BRAIN_FUCK)) {
+					if (debugStage != null) {
+						debugStage.close();
+					}
+					debugStage = new DebugStage(Config.getPresentFileName(), Config.getPresentFileType(), codeTextArea.getText());
+					debugStage.show();
+				} else {
+					new Alert(AlertType.ERROR, "目前只支持BF！").show();
+				}
+			}
+		});
+		
+		unitTestItem.setOnAction(new EventHandler<ActionEvent>() {
+
+			@Override
+			public void handle(ActionEvent event) {
+				if (Config.getPresentFileType().equals(NewFileRequest.BRAIN_FUCK)) {
+					if (unitTestStage != null) {
+						unitTestStage.close();
+					}
+					unitTestStage = new UnitTestStage(Config.getPresentFileName(), Config.getPresentFileType(), codeTextArea.getText());
+					unitTestStage.show();
+				} else {
+					new Alert(AlertType.ERROR, "目前只支持BF！").show();
+				}
+			}
+		});
+		
 	}
 	
 	private void disableMainPane() {
@@ -526,6 +573,8 @@ public class MainStage extends Stage {
 		exitFile.setDisable(true);
 		inputArea.setDisable(true);
 		codeTextArea.setDisable(true);
+		unitTestItem.setDisable(true);
+		debugItem.setDisable(true);
 		inputArea.setText("");
 		codeTextArea.setText("");
 		outputArea.setText("");
@@ -540,6 +589,8 @@ public class MainStage extends Stage {
 		exitFile.setDisable(false);
 		inputArea.setDisable(false);
 		codeTextArea.setDisable(false);
+		unitTestItem.setDisable(false);
+		debugItem.setDisable(false);
 		redoBuffer.clear();
 		bufferVersions.clear();
 	}

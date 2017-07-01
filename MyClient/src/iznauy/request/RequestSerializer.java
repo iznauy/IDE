@@ -51,6 +51,12 @@ public class RequestSerializer implements JsonSerializer<Request> {
 			targetObject.addProperty("fileName", getSelectedVersionRequest.getFileName());
 			targetObject.addProperty("fileType", getSelectedVersionRequest.getFileType());
 			targetObject.addProperty("version", getSelectedVersionRequest.getVersion());
+		} else if (request instanceof DebugRequest) {
+			DebugRequest debugRequest = (DebugRequest) request;
+			targetObject.addProperty("rawSource", debugRequest.getRawSource());
+			targetObject.addProperty("input", debugRequest.getInput());
+			targetObject.addProperty("count", debugRequest.getCount());
+			targetObject.addProperty("type", debugRequest.getType());
 		}
 		return targetObject;
 	}

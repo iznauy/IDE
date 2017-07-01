@@ -33,6 +33,8 @@ public class Request {
 
     public static final String GET_SELECTED_VERSION_LIST = "GET_SELECTED_VERSION_REQUEST";
 
+    public static final String DEBUG = "DEBUG";
+
     public static final String OOK = "OOK";
 
     public static final String BRAIN_FUCK = "BRAIN_FUCK";

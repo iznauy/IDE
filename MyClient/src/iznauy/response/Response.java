@@ -28,6 +28,8 @@ public class Response {
     public static final String GET_SELECTED_VERSION = "GET_SELECT_VERSION";
 
 	private String responseType = DEFAULT;
+	
+	public static final String DEBUG = "DEBUG";
 
 	private String status = null;
 

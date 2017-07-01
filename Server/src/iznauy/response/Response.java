@@ -25,6 +25,8 @@ public class Response {
 
     public static final String GET_SELECTED_VERSION = "GET_SELECT_VERSION";
 
+    public static final String DEBUG = "DEBUG";
+
     private String responseType = DEFAULT;
 
     private String status = null;

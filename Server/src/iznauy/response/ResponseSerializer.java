@@ -47,6 +47,9 @@ public class ResponseSerializer implements JsonSerializer<Response> {
         } else if (responseType.equals(Response.GET_SELECTED_VERSION)) {
             GetSelectedVersionResponse getSelectedVersionResponse = (GetSelectedVersionResponse) response;
             targetObject.addProperty("content", getSelectedVersionResponse.getContent());
+        } else if (responseType.equals(Response.DEBUG)) {
+            DebugResponse debugResponse = (DebugResponse) response;
+            targetObject.addProperty("output", debugResponse.getOutput());
         }
         return targetObject;
     }

@@ -46,8 +46,13 @@ public class ClientThread implements Runnable {
             handleGetFileVersionListRequest();
         } else if (request instanceof GetSelectedVersionRequest) {
             handleGetSelectedVersionRequest();
+        } else if (request instanceof DebugRequest) {
+            handleDebugRequest();
         }
     }
+
+
+
 
     private void handleGetSelectedVersionRequest() {
         GetSelectedVersionRequest getSelectedVersionRequest = (GetSelectedVersionRequest) request;
@@ -308,6 +313,22 @@ public class ClientThread implements Runnable {
             output = new OokInterpreter().executeProgram(executeRequest.getRawSource(), executeRequest.getInput());
         }
         Response response = new ExecuteResponse(output);
+        System.out.println(Config.getConfigedGson().toJson(response));
+        System.out.println(NetUtils.sendResponse(client, response));
+    }
+
+    private void handleDebugRequest() {
+        DebugRequest debugRequest = (DebugRequest) request;
+        String type = debugRequest.getType();
+        int count = debugRequest.getCount();
+        String output = null;
+        if (type.equals(NewFileRequest.BRAIN_FUCK)) {
+            output = new BrainFuckInterpreter().executeProgram(debugRequest.getRawSource(), debugRequest.getInput(), count);
+        } else if (type.equals(NewFileRequest.OOK)) {
+            // unimplemented
+            output = "";
+        }
+        Response response = new DebugResponse(output);
         System.out.println(Config.getConfigedGson().toJson(response));
         System.out.println(NetUtils.sendResponse(client, response));
     }

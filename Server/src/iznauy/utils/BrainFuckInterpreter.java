@@ -12,8 +12,7 @@ import java.util.ArrayList;
  */
 public class BrainFuckInterpreter implements Interpreter {
 
-    @Override
-    public String executeProgram(String rawProgram, String input) {
+    public String executeProgram(String rawProgram, String input, int stepCount) {
         if (rawProgram == null || rawProgram.equals("")) {
             return "";
         }
@@ -68,6 +67,9 @@ public class BrainFuckInterpreter implements Interpreter {
                 }
                 pc += 1;
                 count++;
+                if (count == stepCount) {
+                    return output.toString();
+                }
                 if (count > maxCount) {
                     throw new LanStackOverException();
                 }
@@ -86,6 +88,11 @@ public class BrainFuckInterpreter implements Interpreter {
             return "指令过多！" + output.toString();
         }
         return output.toString();
+    }
+
+    @Override
+    public String executeProgram(String rawProgram, String input) {
+        return executeProgram(rawProgram, input, 10000000);
     }
 
     private static String filter(String rawProgram) {
