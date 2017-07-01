@@ -97,7 +97,7 @@
       <file leaf-file-name="ClientThread.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/iznauy/runner/ClientThread.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4920">
+            <state relative-caret-position="4149">
               <caret line="332" column="68" lean-forward="false" selection-start-line="332" selection-start-column="68" selection-end-line="332" selection-end-column="68" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -804,12 +804,12 @@
       <workItem from="1498111048529" duration="531000" />
       <workItem from="1498133859265" duration="1541000" />
       <workItem from="1498287518629" duration="3000" />
-      <workItem from="1498910014921" duration="5185000" />
+      <workItem from="1498910014921" duration="5756000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60307000" />
+    <option name="totallyTimeSpent" value="60878000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="85" y="34" width="1385" height="877" extended-state="0" />
@@ -1229,7 +1229,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/iznauy/runner/ClientThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4920">
+        <state relative-caret-position="4149">
           <caret line="332" column="68" lean-forward="false" selection-start-line="332" selection-start-column="68" selection-end-line="332" selection-end-column="68" />
           <folding>
             <element signature="imports" expanded="true" />
