@@ -141,7 +141,8 @@ public class UnitTestStage extends Stage {
 						if (output.equals(outputArea.getText())) {
 							new Alert(AlertType.WARNING, "通过测试！").show();
 						} else {
-							new Alert(AlertType.ERROR, "实际输出：" + output).show();
+							new Alert(AlertType.ERROR, "失败！实际输出：" + output).show();
+							Config.playWarningSound();
 						}
 					} else {
 						throw new Exception();
@@ -151,16 +152,19 @@ public class UnitTestStage extends Stage {
 					Alert alert = new Alert(AlertType.ERROR, "网络连接失败！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (InvaildRequsetException e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				}
 			}
 		});

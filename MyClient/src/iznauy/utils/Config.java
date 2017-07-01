@@ -7,6 +7,8 @@ import iznauy.request.Request;
 import iznauy.request.RequestSerializer;
 import iznauy.response.Response;
 import iznauy.response.ResponseDeserializer;
+import iznauy.ui.MainStage;
+import javafx.scene.media.AudioClip;
 import javafx.stage.Stage;
 
 /**
@@ -31,6 +33,12 @@ public abstract class Config {
 	private static String presentFileName = null;
 	
 	private static String presentFileType = null;
+	
+	public static final AudioClip WARNING_SOUND = new AudioClip(MainStage.class.getResource("warning.wav").toExternalForm());
+	
+	public static void playWarningSound() {
+		WARNING_SOUND.play();
+	}
 	
 	public static User getUser() {
 		return user;

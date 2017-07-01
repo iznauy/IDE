@@ -254,16 +254,19 @@ public class DebugStage extends Stage {
 					Alert alert = new Alert(AlertType.ERROR, "网络连接失败！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (InvaildRequsetException e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				}
 			}
 		});
@@ -312,16 +315,19 @@ public class DebugStage extends Stage {
 					Alert alert = new Alert(AlertType.ERROR, "网络连接失败！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (InvaildRequsetException e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				}
 			}
 		});
@@ -354,16 +360,19 @@ public class DebugStage extends Stage {
 					Alert alert = new Alert(AlertType.ERROR, "网络连接失败！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (InvaildRequsetException e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				}
 			}
 		});

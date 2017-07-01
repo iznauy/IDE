@@ -220,16 +220,19 @@ public class MainStage extends Stage {
 					Alert alert = new Alert(AlertType.ERROR, "网络连接失败！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (InvaildRequsetException e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				} catch (Exception e) {
 					e.printStackTrace();
 					Alert alert = new Alert(AlertType.ERROR, "未知错误！");
 					alert.setResizable(false);
 					alert.show();
+					Config.playWarningSound();
 				}
 			}
 		});
@@ -277,6 +280,7 @@ public class MainStage extends Stage {
 					if (nameTextField.getText() == null || nameTextField.getText().equals("")
 							|| nameTextField.getText().trim().equals("")) {
 						new Alert(AlertType.ERROR, "文件名不得为空！").show();
+						Config.playWarningSound();
 					} else {
 						boolean unexpectedChar = false;
 						for (int i = 0; i < nameTextField.getText().length(); i++) {
@@ -288,6 +292,7 @@ public class MainStage extends Stage {
 						}
 						if (unexpectedChar) {
 							new Alert(AlertType.ERROR, "文件名含有不合法字符！").show();
+							Config.playWarningSound();
 						} else {
 							Request request = null;
 							if (brainfuckButton.isSelected()) {
@@ -305,8 +310,10 @@ public class MainStage extends Stage {
 								NewFileResponse newFileResponse = (NewFileResponse) response;
 								if (newFileResponse.getStatus().equals(NewFileResponse.EXIST)) {
 									new Alert(AlertType.ERROR, "文件已存在！").show();
+									Config.playWarningSound();
 								} else if (newFileResponse.getStatus().equals(NewFileResponse.FAIL)) {
 									new Alert(AlertType.ERROR, "服务走丢了").show();
+									Config.playWarningSound();
 								} else {
 									new Alert(AlertType.INFORMATION, "文件创建成功！").show();
 									disableMainPane();
@@ -323,6 +330,7 @@ public class MainStage extends Stage {
 							} catch (NetWorkException | InvaildRequsetException e) {
 								e.printStackTrace();
 								new Alert(AlertType.ERROR, "网络连接失败！").show();
+								Config.playWarningSound();
 							}
 						}
  					}
@@ -359,12 +367,15 @@ public class MainStage extends Stage {
 					SaveFileResponse saveFileResponse = (SaveFileResponse) response;
 					if (saveFileResponse.getStatus().equals(SaveFileResponse.FAIL)) {
 						new Alert(AlertType.ERROR, "服务器走丢了").show();
+						Config.playWarningSound();
 					} else {
 						new Alert(AlertType.INFORMATION, "保存成功！").show();
+						Config.playWarningSound();
 					}
 				} catch (NetWorkException | InvaildRequsetException e) {
 					e.printStackTrace();
 					new Alert(AlertType.ERROR, "网络连接失败！").show();
+					Config.playWarningSound();
 				}
 			}
 		});
@@ -398,6 +409,7 @@ public class MainStage extends Stage {
 						String[] files = getFileListResponse.getFileList();
 						if (files == null) {
 							new Alert(AlertType.ERROR, "您尚未创建文件！").show();
+							Config.playWarningSound();
 							return;
 						}
 
@@ -429,6 +441,7 @@ public class MainStage extends Stage {
 					} catch (NetWorkException | InvaildRequsetException e) {
 						e.printStackTrace();
 						new Alert(AlertType.ERROR, "网络连接失败").show();
+						Config.playWarningSound();
 					}
 				}
 			}
@@ -440,6 +453,7 @@ public class MainStage extends Stage {
 			public void handle(ActionEvent event) {
 				if (Config.getPresentFileName() == null) {
 					new Alert(AlertType.ERROR, "当前文件为空！").show();
+					Config.playWarningSound();
 				} else {
 					GetFileVersionListRequest getFileVersionListRequest = new GetFileVersionListRequest(Config.getUser(), Config.getPresentFileName(), Config.getPresentFileType());
 					try {
@@ -474,6 +488,7 @@ public class MainStage extends Stage {
 					} catch (NetWorkException | InvaildRequsetException e) {
 						e.printStackTrace();
 						new Alert(AlertType.ERROR, "网络连接失败").show();
+						Config.playWarningSound();
 					}
 				}
 			}
@@ -542,6 +557,7 @@ public class MainStage extends Stage {
 					debugStage.show();
 				} else {
 					new Alert(AlertType.ERROR, "目前只支持BF！").show();
+					Config.playWarningSound();
 				}
 			}
 		});
@@ -558,6 +574,7 @@ public class MainStage extends Stage {
 					unitTestStage.show();
 				} else {
 					new Alert(AlertType.ERROR, "目前只支持BF！").show();
+					Config.playWarningSound();
 				}
 			}
 		});

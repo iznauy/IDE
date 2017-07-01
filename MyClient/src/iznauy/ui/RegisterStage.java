@@ -136,10 +136,13 @@ private TextField userName;
 				
 				if (uid == null || uid.equals("")) {
 					wrongMessage.setText("用户名不得为空");
+					Config.playWarningSound();
 				} else if (password == null || password.equals("") || confirmPasswd == null || confirmPasswd.equals("")) {
 					wrongMessage.setText("密码不得为空");
+					Config.playWarningSound();
 				} else if (!password.equals(confirmPasswd)){
 					wrongMessage.setText("两次输入的密码不一致");
+					Config.playWarningSound();
 				} else {
 					boolean hasSpace = false;
 					for (int i = 0; i < uid.length(); i++) {
@@ -150,6 +153,7 @@ private TextField userName;
 					}
 					if (hasSpace) {
 						wrongMessage.setText("用户名不能含有空格");
+						Config.playWarningSound();
 					} else {
 						boolean regex = false;
 						for (int i = 0; i < uid.length(); i++) {
@@ -160,6 +164,7 @@ private TextField userName;
 						}
 						if (regex) {
 							wrongMessage.setText("存在非法字符！");
+							Config.playWarningSound();
 						} else {
 							RegisterRequest registerRequest = new RegisterRequest(uid, password);
 							try {
@@ -170,13 +175,15 @@ private TextField userName;
 								RegisterResponse registerResponse = (RegisterResponse) response;
 								if (registerResponse.getStatus().equals(RegisterResponse.HAS_REGISTER)) {
 									wrongMessage.setText("账号已存在！");
+									Config.playWarningSound();
 								} else if (registerResponse.getStatus().equals(Response.UNKNOWN_REASON)){
 									wrongMessage.setText("未知错误！");
+									Config.playWarningSound();
 								} else {
 									wrongMessage.setText("注册成功！");
 									Config.setUser(new User(uid, password));
 									try {
-										Thread.sleep(1000);
+										Thread.sleep(100);
 									} catch (InterruptedException e) {
 										e.printStackTrace();
 									} finally {
@@ -188,6 +195,7 @@ private TextField userName;
 							} catch (NetWorkException | InvaildRequsetException e) {
 								e.printStackTrace();
 								wrongMessage.setText("网络连接失败！");
+								Config.playWarningSound();
 							}
 						}
 					}

@@ -132,8 +132,10 @@ public class LoginStage extends Stage {
 				String password = passwordField.getText().trim();
 				if (uid == null || uid.equals("")) {
 					wrongMessage.setText("用户名不得为空");
+					Config.playWarningSound();
 				} else if (password == null || password.equals("")) {
 					wrongMessage.setText("密码不得为空");
+					Config.playWarningSound();
 				} else {
 					boolean hasSpace = false;
 					for (int i = 0; i < uid.length(); i++) {
@@ -144,6 +146,7 @@ public class LoginStage extends Stage {
 					}
 					if (hasSpace) {
 						wrongMessage.setText("用户名不能含有空格");
+						Config.playWarningSound();
 					} else {
 						boolean regex = false;
 						for (int i = 0; i < uid.length(); i++) {
@@ -155,6 +158,7 @@ public class LoginStage extends Stage {
 						}
 						if (regex) {
 							wrongMessage.setText("存在非法字符！");
+							Config.playWarningSound();
 						} else {
 							Request loginRequest = new LoginRequest(uid, password);
 							try {
@@ -165,15 +169,18 @@ public class LoginStage extends Stage {
 								LoginResponse loginResponse = (LoginResponse) response;
 								if (loginResponse.getStatus().equals(LoginResponse.NON_EXIST)) {
 									wrongMessage.setText("账号不存在！");
+									Config.playWarningSound();
 								} else if (loginResponse.getStatus().equals(LoginResponse.WRONG_PASSWORD)) {
 									wrongMessage.setText("密码错误！");
+									Config.playWarningSound();
 								} else if (loginResponse.getStatus().equals(Response.UNKNOWN_REASON)) {
 									wrongMessage.setText("未知错误！");
+									Config.playWarningSound();
 								} else {
 									wrongMessage.setText("登陆成功");
 									Config.setUser(new User(uid, password));
 									try {
-										Thread.sleep(1000);
+										Thread.sleep(100);
 									} catch (InterruptedException e) {
 										e.printStackTrace();
 									} finally {
@@ -186,6 +193,7 @@ public class LoginStage extends Stage {
 							} catch (NetWorkException | InvaildRequsetException e) {
 								e.printStackTrace();
 								wrongMessage.setText("网络连接失败！");
+								Config.playWarningSound();
 							}
 						}
 					}
