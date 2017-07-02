@@ -46,6 +46,11 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+/**
+ * 应用主界面
+ * @author iznauy
+ *
+ */
 public class MainStage extends Stage {
 	
 	private	MenuBar menuBar;
@@ -205,7 +210,7 @@ public class MainStage extends Stage {
 				if (rawSource == null || rawSource.trim() == null || rawSource.trim().equals("")) {
 					return;
 				}
-				Request request = new ExecuteRequest(Config.getUser(), rawSource, input, fileType);
+				Request request = new ExecuteRequest(Config.getUser(), rawSource, input, Config.getPresentFileType());
 				try {
 					Response response = NetUtils.CommunicateWithServer(request);
 					if (response instanceof ExecuteResponse) {
@@ -300,6 +305,7 @@ public class MainStage extends Stage {
 								request = newFileRequest;
 							} else {
 								NewFileRequest newFileRequest = new NewFileRequest(Config.getUser(), nameTextField.getText().trim(), NewFileRequest.OOK);
+								System.out.println(233);
 								request = newFileRequest;
 							}
 							try {

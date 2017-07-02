@@ -8,6 +8,11 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
+/**
+ * 反序列化客户端发来的回复
+ * @author iznauy
+ *
+ */
 public class ResponseDeserializer implements JsonDeserializer<Response> {
 
 	@Override

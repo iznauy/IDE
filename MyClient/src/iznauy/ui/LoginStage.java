@@ -26,6 +26,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 登录界面
+ * @author iznauy
+ *
+ */
 public class LoginStage extends Stage {
 
 	private TextField userName;

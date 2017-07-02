@@ -4,7 +4,10 @@ import iznauy.utils.User;
 
 public class ExecuteRequest extends Request {
 
-    private String type = BRAIN_FUCK;
+	/**
+	 * 执行的文件种类，默认是BF
+	 */
+    private String type = Request.OOK;
 
     private String rawSource = null;
 

@@ -8,6 +8,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 初始界面
+ * @author iznauy
+ *
+ */
 public class InitStage extends Stage {
 
 	public InitStage() throws Exception {

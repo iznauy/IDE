@@ -1,5 +1,10 @@
 package iznauy.utils;
 
+/**
+ * 工具类，用于美化BF文件
+ * @author iznauy
+ *
+ */
 public abstract class Tools {
 	
 	public static String processBFText(String original) {
@@ -19,7 +24,9 @@ public abstract class Tools {
             	if (i == '[') {
             		if (programBuilder.length() != 0) {
             			enterCount++;
-            			programBuilder.append(System.lineSeparator());
+            			if (!Character.isSpaceChar(programBuilder.toString().charAt(programBuilder.length() - 1))) {
+            				programBuilder.append(System.lineSeparator());
+            			}
                 		buffer = new StringBuffer("");
                 		for (int j = 0; j < enterCount; j++) {
                 			buffer.append(tab);
@@ -28,19 +35,20 @@ public abstract class Tools {
                 		programBuilder.append(i);
                 		programBuilder.append(System.lineSeparator());
                 		programBuilder.append(buffer.append(tab).toString());
+                		enterCount++;
             		} else {
             			programBuilder.append(i);
             		}
             	} else if (i == ']') {
             		programBuilder.append(System.lineSeparator());
             		buffer = new StringBuffer("");
-            		if (enterCount < 0) {
-            			return null;
-            		}
+            		enterCount--;
             		for (int j = 0; j < enterCount - 1; j++) {
             			buffer.append(tab);
             		}
-            		programBuilder.append(buffer.toString() + tab);
+            		//if (buffer.length() != 0) {
+            			programBuilder.append(buffer.toString() + tab);
+            		//}
             		programBuilder.append(i);
             		programBuilder.append(System.lineSeparator());
             		programBuilder.append(buffer.toString());

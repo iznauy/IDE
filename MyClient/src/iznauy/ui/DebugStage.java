@@ -26,6 +26,11 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * debug界面
+ * @author iznauy
+ *
+ */
 public class DebugStage extends Stage {
 	
 	@SuppressWarnings("unused")

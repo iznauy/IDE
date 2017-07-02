@@ -6,7 +6,7 @@ public class NewFileRequest extends Request {
 	
 	private String fileName;
 	
-	private String fileType;
+	private String fileType = Request.OOK;
 
 	public NewFileRequest(String userName, String password, String fileName, String fileType) {
 		super(userName, password);

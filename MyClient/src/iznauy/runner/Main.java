@@ -9,6 +9,11 @@ import javafx.concurrent.WorkerStateEvent;
 import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
+/**
+ * 应用启动器
+ * @author iznauy
+ *
+ */
 public class Main extends Application {
 
 	private Stage stage;

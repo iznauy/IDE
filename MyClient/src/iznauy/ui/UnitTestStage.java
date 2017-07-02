@@ -23,6 +23,11 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+/**
+ * 单元测试界面
+ * @author iznauy
+ *
+ */
 public class UnitTestStage extends Stage {
 	
 	@SuppressWarnings("unused")
